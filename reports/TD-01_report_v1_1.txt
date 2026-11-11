@@ -1,0 +1,37 @@
+EIDO static check report (script v1.1)
+Run at: 2026-11-08T18:17:38-05:00
+Operator: Jungeun Kim
+Python 3.12.4 on Windows-11-10.0.26300-SP0; jsonschema 4.19.2; pyyaml 6.0.1
+
+Input files (SHA-256):
+  schema   33d7261c3b7ae73facfca18268c2774455e1167d2f7c3c627ebb62b5a5789512  openapi.yaml
+  sample   4f98a553e6e095e25c96a377a068c18ea87fe1674c65199f9a2f7afe0d5bf57d  Sample call transfer EIDO.json
+  standard ad84ab1511f44204c9921f438a80503c3318f84a9b50edb0d322ab736be4d3ba  NENA-STA-021.1b EIDO JSON_2022.docx
+
+1. JSON parse: PASS
+2. Schema validation (EmergencyIncidentDataObjectType): PASS, 0 errors
+3. Rule checks on the sample:
+   R1 $id uniqueness                                    PASS  11 ids, duplicates: none
+   R2 $ref resolution                                   PASS  25 refs, unresolved: none
+   R3 embedded XML well-formed                          PASS  4 XML strings, failures: none
+   R4 RFC 3339 timestamps                               PASS  13 timestamps, malformed: none
+   R5 EIDO-AgencyRole registry                          PASS  agencies with values outside registry: none
+   R6 EIDO-LocationType registry                        PASS  locations with values outside registry: none
+   R7 EIDO-IncidentStatus-Common registry               NA    no incidentComponent in this EIDO
+   R8 location by value XOR by reference (2.18)         PASS  violations: none
+   R9 additional data by value XOR by reference (2.19)  PASS  violations: none
+   R10 at most one owning agency (2.6)                  PASS  owners: none
+   R11 EIDO-IncidentType-Common registry (3.2)          NA    no incidentComponent or no incident type in this EIDO
+   R12 size vs 10 MiB recipient minimum (STA-024 3.8.1) PASS  8414 bytes serialized
+4. Mutation tests (each is a broken copy of the sample; a defect is 'detected' if the schema or a rule reports it):
+   M1 remove required issuingElementIdentification      DETECTED  [schema: 1 error(s)]  expected: schema
+   M2 eidoVersion 2.0                                   DETECTED  [schema: 1 error(s)]  expected: schema (enum)
+   M3 remove required agencyType                        DETECTED  [schema: 1 error(s)]  expected: schema
+   M4 agency role outside registry                      DETECTED  [rules: R5]  expected: rule R5 (schema does not check registry values)
+   M5 malformed top-level timestamp                     DETECTED  [rules: R4]  expected: rule R4 (schema format: date-time is not enforced by default)
+   M6 location with both by-value and by-reference      DETECTED  [rules: R8]  expected: rule R8 (schema does not enforce XOR)
+   M7 dangling $ref                                     DETECTED  [rules: R2]  expected: rule R2
+   M8 two owning agencies                               DETECTED  [rules: R10]  expected: rule R10 (schema does not enforce single owner)
+   M9 remove required callStateRegistryText             DETECTED  [schema: 1 error(s)]  expected: schema
+
+Scope statement: this is a static check of published files on a single computer. No live system, network transport, authentication, or agency data was involved. It is not an execution of the test cases in the specification.
