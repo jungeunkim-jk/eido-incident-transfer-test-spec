@@ -41,7 +41,7 @@ Requires Python 3.9 or later and the packages `jsonschema` and `pyyaml`.
    python scripts/eido_static_check_v1_1.py --schema openapi.yaml --sample "Sample call transfer EIDO.json" --operator "Your Name" --out TD-01_report.txt
    ```
 
-The input hashes printed in each report identify the files that were checked. The reports in `reports/` omit the login and host name lines that the script also prints.
+The input hashes printed in each report identify the files that were checked. The script also prints the OS login and host name on the Operator line; these have been removed from the reports in `reports/`.
 
 ## Summary of results
 
@@ -58,4 +58,4 @@ Across ten deliberately introduced defects, validation against the published sch
 
 ## Citation
 
-Kim, Jungeun. EIDO Incident Transfer Acceptance Test Specification, version 0.1. 2026. DOI: [to be added after archiving]
+Kim, Jungeun. EIDO Incident Transfer Acceptance Test Specification, version 0.1. 2026. DOI (all versions): 10.5281/zenodo.24136813
