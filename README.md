@@ -10,7 +10,7 @@ Author: Jungeun Kim. Independent work; not a publication of the University of Fl
 
 | File | Description |
 |---|---|
-| `C1_Test_Case_Specification_v0.1.pdf` | The specification: exchange under test (Part A), eleven test cases in three suites (Part B), results to date, limitations, and appendices |
+| `Test_Case_Specification_v0.1.pdf` | The specification: exchange under test (Part A), eleven test cases in three suites (Part B), results to date, limitations, and appendices |
 | `scripts/eido_static_check_v1_1.py` | Level 1 static check: schema validation, rule checks R1 to R12, and mutation tests M1 to M10 |
 | `scripts/make_fixtures.py` | Regenerates the two author-constructed fixtures (TD-02R and TD-02A) from the published NENA sample and checks their SHA-256 |
 | `reports/TD-01_report_v1_1.txt`, `reports/TD-02R_report_v1_1.txt`, `reports/TD-02A_report_v1_1.txt` | Reports of the static checks executed on 8 November 2026 |
